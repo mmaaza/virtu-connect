@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VirtuConnect - About Us</title>
+        <link rel="stylesheet" href="styles.css" />
+        <script>
+            let currentMemberIndex = 0;
+
+            function showMember(index) {
+                const members = document.querySelectorAll(".team-member");
+                if (index >= members.length) {
+                    currentMemberIndex = 0;
+                } else if (index < 0) {
+                    currentMemberIndex = members.length - 1;
+                } else {
+                    currentMemberIndex = index;
+                }
+                members.forEach((member, i) => {
+                    member.classList.remove("active");
+                    member.style.display =
+                        i === currentMemberIndex ? "block" : "none";
+                });
+                members[currentMemberIndex].classList.add("active");
+            }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                showMember(currentMemberIndex);
+                document
+                    .querySelector(".nav-button.prev")
+                    .addEventListener("click", () =>
+                        showMember(currentMemberIndex - 1)
+                    );
+                document
+                    .querySelector(".nav-button.next")
+                    .addEventListener("click", () =>
+                        showMember(currentMemberIndex + 1)
+                    );
+            });
+        </script>
+    </head>
+    <body>
+        <%- include('partials/header') %>
+
+        <section class="about-section">
+            <h1>About VirtuConnect</h1>
+            <p>
+                VirtuConnect is your one-stop platform for hosting and managing
+                virtual events efficiently.
+            </p>
+
+            <h2>Our Story</h2>
+            <div class="story">
+                <img src="images/story.jpeg" alt="Our Story" />
+                <p>
+                    At VirtuConnect, we believe that the world is better when
+                    people come together, even if they’re miles apart. What
+                    started as a simple idea to make virtual connections
+                    seamless has evolved into a platform that empowers
+                    individuals, businesses, and organizations to collaborate
+                    without limits. From virtual events to interactive meetings,
+                    we are committed to breaking down barriers and building a
+                    connected digital future.
+                </p>
+            </div>
+
+            <h2>Our Vision</h2>
+            <div class="vision">
+                <img src="images/vision.jpeg" alt="Our Vision" />
+                <p>
+                    To become the leading platform for virtual events, fostering
+                    meaningful connections and empowering users to achieve more
+                    through innovative digital solutions.
+                </p>
+            </div>
+
+            <h2>Our Mission</h2>
+            <div class="mission">
+                <img src="images/mission.jpeg" alt="Our Mission" />
+                <p>
+                    Our mission is to create a user-friendly, secure, and
+                    interactive platform that makes virtual events accessible
+                    and engaging for everyone. We strive to simplify digital
+                    communication and collaboration while ensuring the best
+                    experience for our users.
+                </p>
+            </div>
+
+            <h2>Our Team</h2>
+            <div class="team-section">
+                <button class="nav-button prev">&lt;</button>
+                <div class="team-members">
+                    <div class="team-member active">
+                        <img src="images/kainat.jpg" alt="Kainat Ali" />
+                        <h3>Kainat Ali</h3>
+                        <p>Founder & CEO</p>
+                        <p>
+                            Kainat is the visionary behind VirtuConnect,
+                            striving to create a seamless virtual experience for
+                            all users.
+                        </p>
+                        <p>
+                            With a background in technology and management, she
+                            leads the team with passion and dedication.
+                        </p>
+                    </div>
+                    <div class="team-member">
+                        <img src="images/sawaira.jpg" alt="Sawaira Rashid" />
+                        <h3>Sawaira Rashid</h3>
+                        <p>Event Coordinator</p>
+                        <p>
+                            Sawaira ensures that every event hosted on
+                            VirtuConnect runs smoothly.
+                        </p>
+                        <p>
+                            She has a keen eye for detail and is always ready to
+                            assist with planning and execution.
+                        </p>
+                    </div>
+                    <div class="team-member">
+                        <img src="images/nisma.jpg" alt="Nisma Amir" />
+                        <h3>Nisma Amir</h3>
+                        <p>Marketing Manager</p>
+                        <p>
+                            Nisma drives the marketing efforts at VirtuConnect,
+                            bringing innovative strategies to promote our
+                            platform.
+                        </p>
+                        <p>
+                            She engages with our community to ensure a strong
+                            and active presence.
+                        </p>
+                    </div>
+                    <div class="team-member">
+                        <img src="images/rumasa.jpg" alt="Rumasa Amjad" />
+                        <h3>Rumasa Amjad</h3>
+                        <p>Organizer</p>
+                        <p>
+                            Rumasa is responsible for organizing and
+                            coordinating various events.
+                        </p>
+                        <p>
+                            Her organizational skills ensure that everything is
+                            in place for successful events.
+                        </p>
+                    </div>
+                </div>
+                <button class="nav-button next">&gt;</button>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 VirtuConnect. All Rights Reserved.</p>
+        </footer>
+    </body>
+</html>

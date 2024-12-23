@@ -1,0 +1,499 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fafafa;
+    color: #262626;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000; /* Dark black background */
+    border-bottom: 1px solid #dbdbdb;
+    padding: 10px 20px;
+}
+
+.navbar .logo {
+    font-size: 1.5em;
+    color: #fff; /* White logo text */
+    font-weight: bold;
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.navbar .nav-links li {
+    margin-left: 20px;
+}
+
+.navbar .nav-links a {
+    text-decoration: none;
+    color: #fff; /* White link text */
+    transition: color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    color: #3897f0; /* Blue hover effect */
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    text-align: center;
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+}
+
+.hero-content p {
+    font-size: 1.5em;
+}
+
+.hero-content .btn-primary {
+    background-color: #3897f0; /* Coordinated button color */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 2em;
+    text-decoration: none;
+    margin-top: 20px; /* Added space */
+}
+
+.hero-content .btn-primary:hover {
+    background-color: #2879d0; /* Coordinated hover color */
+}
+
+/* Features Section */
+.features-section {
+    background-color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.features-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.feature {
+    text-align: center;
+    width: 30%;
+    background-color: #fafafa;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+}
+
+.feature img {
+    width: 100%; /* Full width */
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Maintain aspect ratio while fitting the container */
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+.feature h3 {
+    font-size: 1.5em;
+}
+
+.feature p {
+    font-size: 1em;
+}
+
+/* How It Works Section */
+.how-it-works {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.how-it-works h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.steps {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.step {
+    text-align: center;
+    width: 22%;
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+}
+
+.step h3 {
+    font-size: 1.5em;
+}
+
+.step p {
+    font-size: 1em;
+}
+
+/* Events Section */
+.events-section {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.events-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.event-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.event {
+    text-align: center;
+    width: 30%;
+    background-color: #fafafa;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    transition: transform 0.3s; /* Add transform transition */
+}
+
+.event:hover {
+    transform: scale(1.05); /* Add hover effect */
+}
+
+.event img {
+    width: 100%; /* Full width */
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover; /* Maintain aspect ratio while fitting the container */
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 15px; /* Space below the image */
+}
+
+.event h3 {
+    font-size: 1.5em;
+}
+
+.event p {
+    font-size: 1em;
+}
+
+.event .btn-secondary {
+    background-color: #3897f0; /* Coordinated button color */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none;
+    margin-top: 10px; /* Added space */
+}
+
+.event .btn-secondary:hover {
+    background-color: #2879d0; /* Coordinated hover color */
+}
+
+/* Explore Events Button */
+.btn-explore-events {
+    display: inline-block;
+    background-color: #3897f0; /* Coordinated button color */
+    color: #fff;
+    padding: 15px 25px; /* Increased padding for prominence */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em; /* Slightly larger font size */
+    text-decoration: none;
+    margin-top: 20px; /* Added space */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.btn-explore-events:hover {
+    background-color: #2879d0; /* Coordinated hover color */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.testimonials-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.testimonials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+blockquote {
+    background-color: #fafafa;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    width: 45%;
+    font-style: italic;
+}
+
+cite {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #3897f0;
+}
+
+/* About Section */
+.about-section {
+    padding: 50px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.about-section h1 {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+.about-section p {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+/* Stylized Story, Vision, Mission */
+.about-section h2 {
+    font-size: 2em;
+    color: #3897f0;
+    margin-top: 20px;
+}
+
+.about-section .story,
+.about-section .vision,
+.about-section .mission {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.about-section .story img,
+.about-section .vision img,
+.about-section .mission img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 8px;
+}
+
+.about-section .story p,
+.about-section .vision p,
+.about-section .mission p {
+    flex: 1;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+/* Team Members */
+.team-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.team-member {
+    text-align: center;
+    width: 80%;
+    max-width: 800px;
+    background-color: #fafafa;
+    padding: 40px 20px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0.2;
+}
+
+.team-member.active {
+    opacity: 1;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(56, 151, 240, 0.7);
+}
+
+.team-member img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.team-member h3,
+.team-member p {
+    margin: 10px 0;
+}
+
+.team-member p {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.team-member p:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.team-member p:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.team-member p:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.team-member p:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+/* Navigation Buttons */
+.nav-button {
+    background-color: #3897f0; /* Coordinated button color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.nav-button:hover {
+    background-color: #2879d0; /* Coordinated hover color */
+}
+
+.nav-button.prev {
+    left: 10px;
+}
+
+.nav-button.next {
+    right: 10px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #000; /* Dark black background */
+    color: #fff; /* White text */
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid #dbdbdb;
+}
+
+footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+footer ul li {
+    margin: 0 10px;
+}
+
+footer ul li a {
+    text-decoration: none;
+    color: #3897f0; /* Coordinated link color */
+}
+
+footer ul li a:hover {
+    color: #fff; /* White hover color */
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirtuConnect - Events</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+
+    <section id="events" class="events-section">
+        <h2>Upcoming Events</h2>
+        <div class="event-list" id="eventList">
+            <!-- content loads -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 VirtuConnect. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('http://localhost:5000/api/events/all-events')
+                .then(response => response.json())
+                .then(events => {
+                    const eventList = document.getElementById('eventList');
+                    eventList.innerHTML = ''; // Clear any existing content
+    
+                    events.forEach(event => {
+                        const eventCard = document.createElement('div');
+                        eventCard.className = 'event';
+                        eventCard.innerHTML = `
+                            <img src="${event.imagePath}" alt="${event.title} Cover Photo">
+                            <h3>${event.title}</h3>
+                            <p>Date: ${event.date} | Time: ${event.time}</p>
+                            <p>${event.description}</p>
+                            <a href="${event.eventLink}" class="btn-secondary" style="margin-top: 10px; display: block;">Register Now</a>
+                        `;
+                        eventList.appendChild(eventCard);
+                    });
+                })
+                .catch(error => console.error('Error fetching events:', error));
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VirtuConnect - Home</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <!-- Header Section -->
+        <%- include('partials/header') %>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-image-container">
+                <img
+                    src="images/hero-image.jpg"
+                    alt="Hero Image"
+                    class="hero-image"
+                />
+            </div>
+            <div class="hero-content">
+                <h1>Welcome to VirtuConnect</h1>
+                <p>
+                    Your one-stop platform for hosting and managing virtual
+                    events efficiently.
+                </p>
+                <br />
+                <br />
+                <a href="auth.html" class="btn-primary" style="margin-top: 20px"
+                    >Get Started</a
+                >
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2>Why Choose VirtuConnect?</h2>
+            <div class="features">
+                <div class="feature">
+                    <img
+                        src="images/seamless.jpeg"
+                        alt="Seamless Experience Icon"
+                    />
+                    <h3>Seamless Experience</h3>
+                    <p>
+                        Organize and join events with ease using our
+                        user-friendly interface. No hassle, just simplicity.
+                    </p>
+                </div>
+                <div class="feature">
+                    <img
+                        src="images/interactivetools.jpeg"
+                        alt="Interactive Tools Icon"
+                    />
+                    <h3>Interactive Tools</h3>
+                    <p>
+                        Engage participants with chat, polls, and Q&A sessions.
+                        Build lasting connections.
+                    </p>
+                </div>
+                <div class="feature">
+                    <img
+                        src="images/security.jpeg"
+                        alt="Secure Platform Icon"
+                    />
+                    <h3>Secure Platform</h3>
+                    <p>
+                        Enjoy a secure and reliable environment for your virtual
+                        events. Your data is safe with us.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Step 1: Sign Up</h3>
+                    <p>
+                        Create a free account to get started. Provide some basic
+                        information to personalize your experience.
+                    </p>
+                </div>
+                <div class="step">
+                    <h3>Step 2: Browse Events</h3>
+                    <p>
+                        Explore our curated list of events. Filter by date,
+                        category, or location to find the perfect event for you.
+                    </p>
+                </div>
+                <div class="step">
+                    <h3>Step 3: Register</h3>
+                    <p>
+                        Sign up for events that interest you. Receive instant
+                        confirmation and add events to your calendar.
+                    </p>
+                </div>
+                <div class="step">
+                    <h3>Step 4: Attend and Enjoy</h3>
+                    <p>
+                        Join the event, participate, and have fun! Share your
+                        experiences and connect with other attendees.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Events Section -->
+        <section id="events" class="events-section">
+            <h2>Upcoming Events</h2>
+            <div class="event-list">
+                <div class="event">
+                    <img
+                        src="images/diverse-multiethnic-businesspeople-discussing-management-strategy-online-videocall.jpg"
+                        alt="Event 1 Cover Photo"
+                    />
+                    <h3>Tech Innovations 2024</h3>
+                    <p>Date: January 15, 2024 | Time: 10:00 AM</p>
+                    <p>Description for event 1.</p>
+                </div>
+                <div class="event">
+                    <img src="images/aistudy.jpeg" alt="Event 2 Cover Photo" />
+                    <h3>AI in Education</h3>
+                    <p>Date: February 10, 2024 | Time: 2:00 PM</p>
+                    <p>Description for event 2.</p>
+                </div>
+                <div class="event">
+                    <img
+                        src="images/womenintech.jpeg"
+                        alt="Event 3 Cover Photo"
+                    />
+                    <h3>Women in Tech</h3>
+                    <p>Date: March 8, 2024 | Time: 5:00 PM</p>
+                    <p>Description for event 3.</p>
+                </div>
+            </div>
+            <a href="/events" class="btn-explore-events">Explore More</a>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 VirtuConnect. All Rights Reserved.</p>
+                <ul class="social-links">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </footer>
+    </body>
+</html>

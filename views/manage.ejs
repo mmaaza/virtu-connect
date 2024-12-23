@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VirtuConnect - Home</title>
+        <link rel="stylesheet" href="styles.css" />
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+                font-size: 18px;
+                text-align: left;
+            }
+            th,
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            tr:hover {
+                background-color: #f5f5f5;
+            }
+            button {
+                padding: 5px 10px;
+                margin: 0 5px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #ddd;
+            }
+            section {
+                padding: 20px;
+            }
+            .add-event-btn {
+                margin-bottom: 20px;
+                padding: 10px 20px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .add-event-btn:hover {
+                background-color: #45a049;
+            }
+            .edit-event-form {
+                display: none;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 90%;
+                max-width: 500px;
+                max-height: 80vh;
+                overflow-y: auto;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1001;
+            }
+            .edit-event-form label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+            .edit-event-form input[type="text"],
+            .edit-event-form input[type="date"],
+            .edit-event-form input[type="time"],
+            .edit-event-form input[type="url"],
+            .edit-event-form textarea {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            .edit-event-form button {
+                width: 100%;
+                padding: 10px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+            .edit-event-form button:hover {
+                background-color: #45a049;
+            }
+            .edit-event-form .cancel-btn {
+                background-color: #f44336;
+            }
+            .edit-event-form .cancel-btn:hover {
+                background-color: #e53935;
+            }
+            .modal-background {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Header Section -->
+        <%- include('partials/header') %>
+
+        <!-- Events Table -->
+        <section style="min-height: 90vh">
+            <h2>Manage Events</h2>
+            <button class="add-event-btn" onclick="addEvent()">
+                Add Event
+            </button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="eventsTableBody">
+                    <!-- Events will be populated here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Edit Event Form -->
+        <div class="modal-background" id="modalBackground"></div>
+        <div class="edit-event-form" id="editEventForm">
+            <h2>Edit Event</h2>
+            <form id="editEventFormContent">
+                <input type="hidden" id="editEventId" />
+                <label for="editTitle">Event Title:</label>
+                <input type="text" id="editTitle" name="title" required />
+                <label for="editLocation">Event Location:</label>
+                <input type="text" id="editLocation" name="location" required />
+                <label for="editDate">Date:</label>
+                <input type="date" id="editDate" name="date" required />
+                <label for="editTime">Time:</label>
+                <input type="time" id="editTime" name="time" required />
+                <label for="editDescription">Description:</label>
+                <textarea
+                    id="editDescription"
+                    name="description"
+                    required
+                ></textarea>
+                <label for="editEventLink">Event Link:</label>
+                <input
+                    type="url"
+                    id="editEventLink"
+                    name="eventLink"
+                    required
+                />
+                <button type="submit">Update Event</button>
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeEditForm()"
+                >
+                    Cancel
+                </button>
+            </form>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 VirtuConnect. All Rights Reserved.</p>
+                <ul class="social-links">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </footer>
+
+        <script>
+            let events = [];
+
+            async function fetchEvents() {
+                const token = localStorage.getItem("token");
+
+                try {
+                    const response = await fetch(
+                        "http://localhost:5000/api/events/user-events",
+                        {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+
+                    if (response.ok) {
+                        events = await response.json();
+                        const eventsTableBody =
+                            document.getElementById("eventsTableBody");
+                        eventsTableBody.innerHTML = "";
+
+                        events.forEach((event) => {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                            <td>${event.title}</td>
+                            <td>${event.date}</td>
+                            <td>${event.location}</td>
+                            <td>
+                                <button onclick="editEvent('${event._id}')">Edit</button>
+                                <button onclick="deleteEvent('${event._id}')">Delete</button>
+                            </td>
+                        `;
+                            eventsTableBody.appendChild(row);
+                        });
+                    } else {
+                        alert("Failed to fetch events");
+                    }
+                } catch (error) {
+                    console.error("Error fetching events:", error);
+                    alert("Server error");
+                }
+            }
+
+            function editEvent(eventId) {
+                const event = events.find((event) => event._id === eventId);
+                if (event) {
+                    document.getElementById("editEventId").value = event._id;
+                    document.getElementById("editTitle").value = event.title;
+                    document.getElementById("editLocation").value =
+                        event.location;
+                    document.getElementById("editDate").value = event.date;
+                    document.getElementById("editTime").value = event.time;
+                    document.getElementById("editDescription").value =
+                        event.description;
+                    document.getElementById("editEventLink").value =
+                        event.eventLink;
+                    document.getElementById("editEventForm").style.display =
+                        "block";
+                    document.getElementById("modalBackground").style.display =
+                        "block";
+                }
+            }
+
+            function closeEditForm() {
+                document.getElementById("editEventForm").style.display = "none";
+                document.getElementById("modalBackground").style.display =
+                    "none";
+            }
+
+            document
+                .getElementById("editEventFormContent")
+                .addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const eventId =
+                        document.getElementById("editEventId").value;
+                    const title = document.getElementById("editTitle").value;
+                    const location =
+                        document.getElementById("editLocation").value;
+                    const date = document.getElementById("editDate").value;
+                    const time = document.getElementById("editTime").value;
+                    const description =
+                        document.getElementById("editDescription").value;
+                    const eventLink =
+                        document.getElementById("editEventLink").value;
+
+                    const token = localStorage.getItem("token");
+
+                    try {
+                        const response = await fetch(
+                            `http://localhost:5000/api/events/${eventId}`,
+                            {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${token}`,
+                                },
+                                body: JSON.stringify({
+                                    title,
+                                    location,
+                                    date,
+                                    time,
+                                    description,
+                                    eventLink,
+                                }),
+                            }
+                        );
+
+                        if (response.ok) {
+                            alert("Event updated successfully");
+                            closeEditForm();
+                            fetchEvents();
+                        } else {
+                            const result = await response.json();
+                            alert("Error: " + result.message);
+                        }
+                    } catch (error) {
+                        console.error("Error:", error);
+                        alert("Server error");
+                    }
+                });
+
+            async function deleteEvent(eventId) {
+                const token = localStorage.getItem("token");
+
+                try {
+                    const response = await fetch(
+                        `http://localhost:5000/api/events/${eventId}`,
+                        {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+
+                    if (response.ok) {
+                        alert("Event deleted successfully");
+                        fetchEvents();
+                    } else {
+                        const result = await response.json();
+                        alert("Error: " + result.message);
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    alert("Server error");
+                }
+            }
+
+            function addEvent() {
+                window.location.href = "/addEvent";
+            }
+
+            document.addEventListener("DOMContentLoaded", fetchEvents);
+        </script>
+    </body>
+</html>

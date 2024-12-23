@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In / Sign Up</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Container for the entire form */
+        .auth-container {
+            width: 900px;
+            height: 600px;
+            display: flex;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            position: relative;
+        }
+
+        /* Transitioning sections */
+        .auth-container.transition .welcome-section,
+        .auth-container.transition .form-section {
+            transition: transform 0.5s ease-in-out;
+        }
+
+        /* Left side with welcome message */
+        .welcome-section {
+            width: 50%;
+            background: linear-gradient(135deg, #3897f0 50%, #1d5bbf 50%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        .welcome-section a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .welcome-section p {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        /* Right side with forms */
+        .form-section {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        form {
+            width: 100%;
+            text-align: center;
+        }
+
+        form h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3897f0;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #2879d0;
+        }
+
+        .switch-btn {
+            margin-top: 20px;
+            color: #3897f0;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .switch-btn:hover {
+            color: #2879d0;
+        }
+
+        /* Error Message Styles */
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        /* Switch sides */
+        .auth-container.switch .welcome-section {
+            transform: translateX(100%);
+        }
+
+        .auth-container.switch .form-section {
+            transform: translateX(-100%);
+        }
+    </style>
+    <script>
+        if (localStorage.getItem('token')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="auth-container" id="container">
+        <div class="welcome-section">
+            <h1><a href="/">VirtuConnect</a></h1>
+            <p>Welcome to VirtuConnect!</p>
+            <p>Your one-stop platform for hosting and managing virtual events efficiently.</p>
+            <p>Connect, Collaborate, Succeed</p>
+        </div>
+        <div class="form-section">
+            <!-- Sign in Form -->
+            <form id="signInForm">
+                <h2>Sign In</h2>
+                <div class="error-message" id="signInError"></div>
+                <input type="email" id="signInEmail" placeholder="Email" required>
+                <input type="password" id="signInPassword" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+                <p class="switch-btn" id="switchToSignUp">Don't have an account? Sign Up</p>
+            </form>
+            <form id="signUpForm" style="display: none;">
+                <h2>Sign Up</h2>
+                <div class="error-message" id="signUpError"></div>
+                <input type="text" id="signUpName" placeholder="Full Name" required>
+                <input type="email" id="signUpEmail" placeholder="xyz@gmail.com" required>
+                <input type="password" id="signUpPassword" placeholder="Password" required>
+                <input type="password" id="signUpConfirmPassword" placeholder="Confirm Password" required>
+                <input type="text" id="signUpPhone" placeholder="(+92)3xx-xxxxxxx" required>
+                <input type="text" id="signUpAddress" placeholder="Address" required>
+                <button type="submit">Sign Up</button>
+                <p class="switch-btn" id="switchToSignIn">Already have an account? Sign In</p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+        const signInForm = document.getElementById('signInForm');
+        const signUpForm = document.getElementById('signUpForm');
+        const switchToSignUp = document.getElementById('switchToSignUp');
+        const switchToSignIn = document.getElementById('switchToSignIn');
+
+        switchToSignUp.addEventListener('click', () => {
+            container.classList.add('switch', 'transition');
+            setTimeout(() => {
+                signInForm.style.display = 'none';
+                signUpForm.style.display = 'block';
+            }, 500);
+        });
+
+        switchToSignIn.addEventListener('click', () => {
+            container.classList.remove('switch');
+            setTimeout(() => {
+                signUpForm.style.display = 'none';
+                signInForm.style.display = 'block';
+            }, 500);
+        });
+
+        signInForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signInEmail').value;
+            const password = document.getElementById('signInPassword').value;
+            const errorElement = document.getElementById('signInError');
+            errorElement.style.display = 'none';
+
+            if (!validateEmail(email)) {
+                errorElement.textContent = 'Invalid email format';
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            if (password.length < 6) {
+                errorElement.textContent = 'Password must be at least 6 characters long';
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            // Send sign-in data to server
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/signin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    signInForm.reset();
+                    localStorage.setItem('token', result.token);
+                    window.location.href = '/';
+                } else {
+                    errorElement.textContent = result.message;
+                    errorElement.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorElement.textContent = 'Server error';
+                errorElement.style.display = 'block';
+            }
+        });
+
+        signUpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signUpName').value;
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+            const confirmPassword = document.getElementById('signUpConfirmPassword').value;
+            const phone = document.getElementById('signUpPhone').value;
+            const address = document.getElementById('signUpAddress').value;
+            const errorElement = document.getElementById('signUpError');
+            errorElement.style.display = 'none';
+
+            if (!name || !email || !password || !confirmPassword || !phone || !address) {
+                errorElement.textContent = 'All fields are required';
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                errorElement.textContent = 'Invalid email format';
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            if (password.length < 6) {
+                errorElement.textContent = 'Password must be at least 6 characters long';
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                errorElement.textContent = 'Passwords do not match';
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            // Send sign-up data to server
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/signup', {
+                    method: 'POST', // GET, POST
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password, phone, address }),
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    signUpForm.reset();
+                    window.location.href('/');
+                } else {
+                    errorElement.textContent = result.message;
+                    errorElement.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorElement.textContent = 'Server error';
+                errorElement.style.display = 'block';
+            }
+        });
+
+        function validateEmail(email) {
+            const re = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>

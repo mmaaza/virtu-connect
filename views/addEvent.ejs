@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <title>Add Event</title>
+        <style>
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                padding: 20px 0;
+            }
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+            form {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                max-width: 500px;
+            }
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+            input[type="text"],
+            input[type="date"],
+            input[type="time"],
+            input[type="url"],
+            textarea {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            button {
+                width: 100%;
+                padding: 10px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            input[type="file"] {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                background-color: #f9f9f9;
+                cursor: pointer;
+            }
+
+            input[type="file"]::-webkit-file-upload-button {
+                padding: 8px 16px;
+                background-color: #4caf50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            input[type="file"]::-webkit-file-upload-button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('partials/header') %>
+
+        <div class="container">
+            <h1>Add Event</h1>
+            <form id="addEventForm" method="post" enctype="multipart/form-data">
+                <label for="title">Event Title:</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    required
+                /><br /><br />
+                <label for="location">Event Location:</label>
+                <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    required
+                /><br /><br />
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required /><br /><br />
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required /><br /><br />
+                <label for="description">Description:</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    required
+                ></textarea
+                ><br /><br />
+                <label for="eventLink">Event Link:</label>
+                <input
+                    type="url"
+                    id="eventLink"
+                    name="eventLink"
+                    required
+                /><br /><br />
+                <label for="eventImage">Event Image:</label>
+                <input
+                    type="file"
+                    id="eventImage"
+                    name="eventImage"
+                    accept="image/*"
+                />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 VirtuConnect. All Rights Reserved.</p>
+                <ul class="social-links">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </footer>
+
+        <script>
+            document
+                .getElementById("addEventForm")
+                .addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(
+                        document.getElementById("addEventForm")
+                    );
+                    const token = localStorage.getItem("token");
+
+                    try {
+                        const response = await fetch(
+                            "http://localhost:5000/api/events/add",
+                            {
+                                method: "POST",
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                },
+                                body: formData,
+                            }
+                        );
+
+                        if (response.ok) {
+                            alert("Event added successfully");
+                            document.getElementById("addEventForm").reset();
+                            window.location.href = "manage.html";
+                        } else {
+                            const result = await response.json();
+                            alert("Error: " + result.message);
+                        }
+                    } catch (error) {
+                        console.error("Error:", error);
+                        alert("Server error");
+                    }
+                });
+        </script>
+    </body>
+</html>

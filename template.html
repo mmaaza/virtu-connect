@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>VirtuConnect - Home</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <!-- Header Section -->
+        <header>
+            <nav class="navbar">
+                <div class="logo">VirtuConnect</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="manage.html" class="manage-btn" style="color: white; background-color: #fff; color: #333; padding: 8px 15px; border-radius: 4px; text-decoration: none;">Manage Events</a></li>
+                    <li><a href="auth.html" id="loginBtn" style="display: none;">Login/Register</a></li>
+                    <li><a href="#" id="signoutBtn" style="display: none;" onclick="signOut()">Sign Out</a></li>
+                    <script>
+                        function signOut() {
+                            localStorage.removeItem('token');
+                            window.location.href = 'index.html';
+                        }
+                        
+                        if (localStorage.getItem('token')) {
+                            document.getElementById('signoutBtn').style.display = 'block';
+                        } else {
+                            document.getElementById('loginBtn').style.display = 'block';
+                        }
+                    </script>
+                </ul>
+            </nav>
+        </header>
+
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 VirtuConnect. All Rights Reserved.</p>
+                <ul class="social-links">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </footer>
+    </body>
+</html>

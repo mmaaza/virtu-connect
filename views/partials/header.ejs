@@ -1,0 +1,25 @@
+<header>
+    <nav class="navbar">
+        <div class="logo">VirtuConnect</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/events">Events</a></li>
+            <li><a href="/manage" class="manage-btn" style="color: white; background-color: #fff; color: #333; padding: 8px 15px; border-radius: 4px; text-decoration: none;">Manage Events</a></li>
+            <li><a href="/auth" id="loginBtn" style="display: none;">Login/Register</a></li>
+            <li><a href="#" id="signoutBtn" style="display: none;" onclick="signOut()">Sign Out</a></li>
+            <script>
+                function signOut() {
+                    localStorage.removeItem('token');
+                    window.location.href = '/';
+                }
+                
+                if (localStorage.getItem('token')) {
+                    document.getElementById('signoutBtn').style.display = 'block';
+                } else {
+                    document.getElementById('loginBtn').style.display = 'block';
+                }
+            </script>
+        </ul>
+    </nav>
+</header>
